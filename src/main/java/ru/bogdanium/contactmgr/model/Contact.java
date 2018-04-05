@@ -2,7 +2,7 @@ package ru.bogdanium.contactmgr.model;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "Contact")
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

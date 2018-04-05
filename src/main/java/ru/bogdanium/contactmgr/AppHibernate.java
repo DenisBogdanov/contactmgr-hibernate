@@ -11,13 +11,18 @@ import ru.bogdanium.contactmgr.model.Contact;
 import java.util.List;
 
 
-public class App {
+public class AppHibernate {
     private static final SessionFactory sessionFactory = buildSessionFactory();
 
     private static SessionFactory buildSessionFactory() {
         final ServiceRegistry registry =
-                new StandardServiceRegistryBuilder().configure().build();
-        return new MetadataSources(registry).buildMetadata().buildSessionFactory();
+                new StandardServiceRegistryBuilder()
+                        .configure()
+                        .build();
+
+        return new MetadataSources(registry)
+                .buildMetadata()
+                .buildSessionFactory();
     }
 
     public static void main(String[] args) {
@@ -29,19 +34,19 @@ public class App {
         int id = save(contact);
 
         // Display a list of contacts before the update
-        System.out.printf("\n\nBefore update\n\n");
-        fetchAllContacts().stream().forEach(System.out::println);
+        System.out.println("\nBefore update\n");
+        fetchAllContacts().forEach(System.out::println);
 
         Contact c = findContactById(id);
 
-        c.setFirstName("Petya");
+        c.setFirstName("Denissimo");
 
-        System.out.printf("\n\nUpdating...\n\n");
+        System.out.println("\nUpdating...\n");
         update(c);
-        System.out.printf("\n\nUpdate complete!\n\n");
+        System.out.println("\nUpdate complete!\n");
 
-        System.out.printf("\n\nAfter update\n\n");
-        fetchAllContacts().stream().forEach(System.out::println);
+        System.out.println("\nAfter update\n");
+        fetchAllContacts().forEach(System.out::println);
     }
 
     private static Contact findContactById(int id) {
