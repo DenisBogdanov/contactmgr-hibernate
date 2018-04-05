@@ -47,6 +47,10 @@ public class AppHibernate {
 
         System.out.println("\nAfter update\n");
         fetchAllContacts().forEach(System.out::println);
+
+        delete(c);
+        System.out.println("\nAfter deleting\n");
+        fetchAllContacts().forEach(System.out::println);
     }
 
     private static Contact findContactById(int id) {
@@ -105,5 +109,15 @@ public class AppHibernate {
         session.close();
 
         return id;
+    }
+
+    private static void delete(Contact contact) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.delete(contact);
+
+        session.getTransaction().commit();
+        session.close();
     }
 }
